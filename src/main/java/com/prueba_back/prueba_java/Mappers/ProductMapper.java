@@ -6,7 +6,6 @@ import com.prueba_back.prueba_java.Response.ResponseProduct;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,8 +21,6 @@ public class ProductMapper {
     }
 
     public List<ProductDto> toProduct(List<Products> products){
-
-
         if (products != null && !products.isEmpty()){
            return products.stream()
                    .map(this::toProductMap)

@@ -34,7 +34,7 @@ public class ProductImpl implements ProductService {
     public ResponseProduct listAll() {
             try{
                 List<Products> productDto =  productRepository.findAll();
-                return productMapper.toResponseProductDto(productDto,2001,"Consulta Exitosa","200");
+                return productMapper.toResponseProductDto(productDto,200,"Consulta Exitosa","200");
             }catch (Exception e){
                 return ResponseProduct.builder()
                         .codResponse(400)
