@@ -2,6 +2,7 @@ package com.prueba_back.prueba_java.Controller;
 
 import com.prueba_back.prueba_java.Dto.ProductDto;
 import com.prueba_back.prueba_java.Entity.Products;
+import com.prueba_back.prueba_java.Response.ResponseProduct;
 import com.prueba_back.prueba_java.Service.Impl.ProductImpl;
 import com.prueba_back.prueba_java.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping(value = "/list")
-    public List<Products> ListProducts()throws IOException{
-        return productService.listAll();
+    public ResponseEntity<ResponseProduct> ListProducts()throws IOException{
+        return new ResponseEntity<ResponseProduct>(productService.listAll(),HttpStatus.OK) ;
     }
 
     @GetMapping(value = "/listBy/{id}")

@@ -1,15 +1,16 @@
 package com.prueba_back.prueba_java.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 @Data
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(fluent = true)
 public class ProductDto {
 
     @JsonProperty("id")
@@ -22,7 +23,7 @@ public class ProductDto {
     private Float value;
 
     @JsonProperty("weight")
-    private Long weight;
+    private String weight;
 
     @JsonProperty("quantity")
     private Long quantity;
