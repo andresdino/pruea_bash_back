@@ -7,6 +7,7 @@ import com.prueba_back.prueba_java.Repository.UserRepository;
 import com.prueba_back.prueba_java.Response.ResponseUserSave;
 import com.prueba_back.prueba_java.Response.ResponseUsers;
 import com.prueba_back.prueba_java.Service.UserService;
+import com.prueba_back.prueba_java.Utils.EncriptarDesencriptar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,22 +22,27 @@ public class UserImpl implements UserService {
     @Autowired
     UsersMapper usersMapper;
 
+
     @Override
     public ResponseUserSave save(UserDto userDto) {
 
         try{
+
+            String PasswordEncryp = EncriptarDesencriptar.Encriptar(userDto.password());
+
             Users users = new Users();
 
             if(userDto != null){
                 users.setName(userDto.name());
                 users.setLastname(userDto.lastName());
                 users.setUsername(userDto.username());
-                users.setPassword(userDto.password());
+                users.setPassword(PasswordEncryp);
                 users.setAge(userDto.age());
                 users.setPhone(userDto.phone());
                 users.setAddres(userDto.addres());
                 users.setIdentification(userDto.identification());
                 userRepository.save(users);
+                users.setPassword("");
                 return usersMapper.toResponseUserSave(users,201,"Usuario Creado con Exitosamente","201");
             }
             return usersMapper.toResponseUserSave(null,201,"Fallo al crear el usuario","201");
