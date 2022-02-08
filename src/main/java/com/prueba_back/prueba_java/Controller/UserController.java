@@ -1,6 +1,8 @@
 package com.prueba_back.prueba_java.Controller;
 
+import com.prueba_back.prueba_java.Dto.UserDto;
 import com.prueba_back.prueba_java.Entity.Users;
+import com.prueba_back.prueba_java.Response.ResponseUserSave;
 import com.prueba_back.prueba_java.Response.ResponseUsers;
 import com.prueba_back.prueba_java.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/save")
-    public Users usersSave(@RequestBody Users users){
-        return this.userService.save(users);
+    public ResponseEntity<ResponseUserSave> usersSave(@RequestBody UserDto users){
+        return new ResponseEntity<ResponseUserSave>(userService.save(users),HttpStatus.CREATED);
     }
 }

@@ -4,11 +4,10 @@ import com.prueba_back.prueba_java.Dto.UserDto;
 import com.prueba_back.prueba_java.Entity.Users;
 import com.prueba_back.prueba_java.Mappers.UsersMapper;
 import com.prueba_back.prueba_java.Repository.UserRepository;
-import com.prueba_back.prueba_java.Response.ResponseProduct;
+import com.prueba_back.prueba_java.Response.ResponseUserSave;
 import com.prueba_back.prueba_java.Response.ResponseUsers;
 import com.prueba_back.prueba_java.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,15 +21,31 @@ public class UserImpl implements UserService {
     @Autowired
     UsersMapper usersMapper;
 
-    private PasswordEncoder passwordEncoder;
-
     @Override
-    public Users save(Users userDto) {
-        if(userDto != null){
-            Users users = userRepository.save(userDto);
-            return users;
+    public ResponseUserSave save(UserDto userDto) {
+
+        try{
+            Users users = new Users();
+
+            if(userDto != null){
+                users.setName(userDto.name());
+                users.setLastname(userDto.lastName());
+                users.setUsername(userDto.username());
+                users.setPassword(userDto.password());
+                users.setAge(userDto.age());
+                users.setPhone(userDto.phone());
+                users.setAddres(userDto.addres());
+                users.setIdentification(userDto.identification());
+                userRepository.save(users);
+                return usersMapper.toResponseUserSave(users,201,"Usuario Creado con Exitosamente","201");
+            }
+            return usersMapper.toResponseUserSave(null,201,"Fallo al crear el usuario","201");
+        }catch (Exception e){
+            return usersMapper.toResponseUserSave(null, 400, e.toString(),
+                    "400");
         }
-        return null;
+
+
     }
 
     @Override

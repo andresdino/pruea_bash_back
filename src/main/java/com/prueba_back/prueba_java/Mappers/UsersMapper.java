@@ -2,6 +2,7 @@ package com.prueba_back.prueba_java.Mappers;
 
 import com.prueba_back.prueba_java.Dto.UserDto;
 import com.prueba_back.prueba_java.Entity.Users;
+import com.prueba_back.prueba_java.Response.ResponseUserSave;
 import com.prueba_back.prueba_java.Response.ResponseUsers;
 import org.springframework.stereotype.Component;
 
@@ -36,10 +37,36 @@ public class UsersMapper {
                     .age(users.getAge())
                     .addres(users.getAddres())
                     .identification(users.getIdentification())
-                    .password(users.getPassword())
                     .username(users.getUsername())
                     .phone(users.getPhone())
                     .build();
+        }
+        return null;
+    }
+
+    public ResponseUserSave toResponseUserSave(Users users, Integer codeResponse, String message, String status){
+        return ResponseUserSave.builder()
+                .codResponse(codeResponse)
+                .message(message)
+                .status(status)
+                .usersDto(toUserSave(users))
+                .build();
+    }
+
+    public UserDto toUserSave(Users users){
+        UserDto userDto = new UserDto();
+
+        if (users != null){
+            userDto.name(users.getName());
+            userDto.lastName(users.getLastname());
+            userDto.username(users.getUsername());
+            userDto.password(users.getPassword());
+            userDto.age(users.getAge());
+            userDto.phone(users.getPhone());
+            userDto.addres(users.getAddres());
+            userDto.identification(users.getIdentification());
+
+            return userDto;
         }
         return null;
     }
