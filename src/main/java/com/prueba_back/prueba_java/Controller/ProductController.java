@@ -40,4 +40,10 @@ public class ProductController {
 
         return new ResponseEntity<ResponseProducSave>(productService.save(productDto),HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/update")
+    public ResponseEntity<ResponseProducSave> productsUpdate(@RequestBody ProductDto productDto){
+
+        return new ResponseEntity<ResponseProducSave>(productService.save(productDto),HttpStatus.CREATED);
+    }
 }
