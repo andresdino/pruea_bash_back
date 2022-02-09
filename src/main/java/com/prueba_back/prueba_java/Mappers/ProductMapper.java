@@ -2,7 +2,9 @@ package com.prueba_back.prueba_java.Mappers;
 
 import com.prueba_back.prueba_java.Dto.ProductDto;
 import com.prueba_back.prueba_java.Entity.Products;
+import com.prueba_back.prueba_java.Response.ResponseProducSave;
 import com.prueba_back.prueba_java.Response.ResponseProduct;
+import com.prueba_back.prueba_java.Response.ResponseUserSave;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -37,6 +39,29 @@ public class ProductMapper {
                     .weight(products.getWeight())
                     .quantity(products.getQuantity())
                     .build();
+        }
+        return null;
+    }
+
+    public ResponseProducSave toResponseProductSave(Products products, Integer codeResponse, String message, String status){
+        return ResponseProducSave.builder()
+                .codResponse(codeResponse)
+                .message(message)
+                .status(status)
+                .productDto(toProductSave(products))
+                .build();
+    }
+
+    public ProductDto toProductSave(Products products){
+        ProductDto productDto = new ProductDto();
+
+        if (products != null){
+            productDto.name(products.getName());
+            productDto.value(products.getValue());
+            productDto.weight(products.getWeight());
+            productDto.quantity(products.getQuantity());
+
+            return productDto;
         }
         return null;
     }

@@ -1,8 +1,13 @@
 package com.prueba_back.prueba_java.Controller;
 
+import com.prueba_back.prueba_java.Dto.CarDto;
 import com.prueba_back.prueba_java.Entity.Car;
+import com.prueba_back.prueba_java.Response.ResponseCar;
+import com.prueba_back.prueba_java.Response.ResponseCarSave;
 import com.prueba_back.prueba_java.Service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -17,14 +22,14 @@ public class CarController {
     private CarService carService;
 
     @GetMapping(value = "/list")
-    public List<Car> ListProducts()throws IOException {
-        return carService.listAll();
+    public ResponseEntity<ResponseCar> ListProducts()throws IOException {
+        return new ResponseEntity<ResponseCar>(carService.listAll(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/save")
-    public Car CarsSave(@RequestBody Car car){
+    public ResponseEntity<ResponseCarSave> CarsSave(@RequestBody CarDto car){
 
-        return this.carService.save(car);
+        return new ResponseEntity<ResponseCarSave>(carService.save(car),HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/listByUser/{idUser}")

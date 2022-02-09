@@ -2,8 +2,9 @@ package com.prueba_back.prueba_java.Controller;
 
 import com.prueba_back.prueba_java.Dto.ProductDto;
 import com.prueba_back.prueba_java.Entity.Products;
+import com.prueba_back.prueba_java.Response.ResponseCarSave;
+import com.prueba_back.prueba_java.Response.ResponseProducSave;
 import com.prueba_back.prueba_java.Response.ResponseProduct;
-import com.prueba_back.prueba_java.Service.Impl.ProductImpl;
 import com.prueba_back.prueba_java.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("products")
@@ -36,7 +36,8 @@ public class ProductController {
     }
 
     @PostMapping(value = "/save")
-    public Products productsSave(@RequestBody Products productDto){
-        return this.productService.save(productDto);
+    public ResponseEntity<ResponseProducSave> productsSave(@RequestBody ProductDto productDto){
+
+        return new ResponseEntity<ResponseProducSave>(productService.save(productDto),HttpStatus.CREATED);
     }
 }

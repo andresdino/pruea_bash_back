@@ -3,6 +3,7 @@ package com.prueba_back.prueba_java.Response;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.prueba_back.prueba_java.Dto.CarDto;
 import com.prueba_back.prueba_java.Dto.ProductDto;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.List;
 @Accessors(prefix = { "res", "res_" })
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResponseProducSave {
+public class ResponseCar {
 
     @JsonProperty("message")
     private String resMessage;
@@ -26,6 +27,6 @@ public class ResponseProducSave {
     @JsonProperty("codResponse")
     private Integer resCodResponse;
 
-    @JsonProperty("productsSave")
-    private ProductDto resProductDto;
+    @JsonProperty("car")
+    private List<CarDto> resCarDto;
 }

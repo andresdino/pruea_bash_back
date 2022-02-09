@@ -29,13 +29,14 @@ public class UserImpl implements UserService {
         try{
 
             String PasswordEncryp = EncriptarDesencriptar.Encriptar(userDto.password());
+            String UserNameEncryp = EncriptarDesencriptar.Encriptar(userDto.username());
 
             Users users = new Users();
 
             if(userDto != null){
                 users.setName(userDto.name());
                 users.setLastname(userDto.lastName());
-                users.setUsername(userDto.username());
+                users.setUsername(UserNameEncryp);
                 users.setPassword(PasswordEncryp);
                 users.setAge(userDto.age());
                 users.setPhone(userDto.phone());
@@ -60,6 +61,9 @@ public class UserImpl implements UserService {
         try{
 
             List<Users> users =  userRepository.findAll();
+            for (Users user : users) {
+                user.setUsername(EncriptarDesencriptar.Desencriptar(user.getUsername()));
+            }
             return usersMapper.toResponseUserDto(users,200,"Lista de usuarios consultada exitosamente","200");
         }catch (Exception e){
             return ResponseUsers.builder()
