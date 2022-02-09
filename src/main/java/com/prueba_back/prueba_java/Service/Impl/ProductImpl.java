@@ -55,6 +55,7 @@ public class ProductImpl implements ProductService {
 
                 kardex.setName(productDto.name());
                 kardex.setUnit(productDto.unit());
+                kardex.setSupplier(productDto.supplier());
                 kardex.setDate(new Date());
                 kardex.setValue(productDto.value());
                 kardex.setQuantityTickets(productDto.quantity());

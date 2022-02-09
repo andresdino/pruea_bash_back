@@ -31,4 +31,12 @@ public class Products {
 
     @Column(name = "Quantity")
     private Long quantity;
+
+    @Column(name = "Unit")
+    private String unit;
+
+    @Column(name = "Supplier")
+    private String supplier;
+
+
 }

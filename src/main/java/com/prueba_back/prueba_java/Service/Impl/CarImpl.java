@@ -2,9 +2,11 @@ package com.prueba_back.prueba_java.Service.Impl;
 
 import com.prueba_back.prueba_java.Dto.CarDto;
 import com.prueba_back.prueba_java.Entity.Car;
+import com.prueba_back.prueba_java.Entity.Kardex;
 import com.prueba_back.prueba_java.Entity.Products;
 import com.prueba_back.prueba_java.Mappers.CarMapper;
 import com.prueba_back.prueba_java.Repository.CarsRepository;
+import com.prueba_back.prueba_java.Repository.KardexRepository;
 import com.prueba_back.prueba_java.Repository.ProductRepository;
 import com.prueba_back.prueba_java.Response.ResponseCar;
 import com.prueba_back.prueba_java.Response.ResponseCarSave;
@@ -13,6 +15,7 @@ import com.prueba_back.prueba_java.Service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,6 +23,9 @@ public class CarImpl implements CarService {
 
     @Autowired
     CarsRepository carRepository;
+
+    @Autowired
+    KardexRepository kardexRepository;
 
     @Autowired
     CarMapper carMapper;
@@ -50,9 +56,27 @@ public class CarImpl implements CarService {
                         products1.setWeight(products.getWeight());
                         products1.setQuantity(newQuantity);
                         productRepository.save(products1);
+
+
+                        /* Kardex*/
+                        Kardex kardex = new Kardex();
+
+                        Float Value = products.getValue() * products.getQuantity();
+
+                        kardex.setName(products.getName());
+                        kardex.setUnit(products.getUnit());
+                        kardex.setSupplier(products.getSupplier());
+                        kardex.setDate(new Date());
+                        kardex.setValue(products.getValue());
+                        kardex.setQuantityDepartures(products.getQuantity());
+                        kardex.setValueDepartures(Value);
+                        kardex.setQuantityBalance(products.getQuantity());
+                        kardex.setValueBalance(Value);
+                        kardexRepository.save(kardex);
                     }
                 }
             }
+
 
 
             if(car != null){

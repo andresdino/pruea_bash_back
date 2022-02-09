@@ -30,4 +30,8 @@ public class ProductDto {
 
     @JsonProperty("unit")
     private String unit;
+
+    @JsonProperty("Supplier")
+    private String supplier;
+
 }
