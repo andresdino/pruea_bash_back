@@ -20,11 +20,15 @@ public class Car {
     @Column(name = "idCar")
     private Long id;
 
-    @Column(name = "id")
-    private Long idUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    //@Column(name = "id")
+    private Users idUser;
 
-    @Column(name = "IDProducts")
-    private Long idProduc;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IDProducts")
+    //@Column(name = "IDProducts")
+    private Products idProduc;
 
     @Column(name = "cantidad")
     private Long cantidad;

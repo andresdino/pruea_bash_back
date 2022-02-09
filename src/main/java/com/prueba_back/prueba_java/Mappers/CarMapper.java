@@ -33,8 +33,8 @@ public class CarMapper {
     public CarDto toCarMap(Car car){
         if (car != null){
             return CarDto.builder()
-                    .idProduct(car.getIdProduc())
-                    .idUser(car.getIdUser())
+                    .idProduct(car.getIdProduc().getId())
+                    .idUser(car.getIdUser().getId())
                     .cantidad(car.getCantidad())
                     .build();
         }
@@ -54,8 +54,8 @@ public class CarMapper {
         CarDto carDto = new CarDto();
 
         if (car != null){
-            carDto.idProduct(car.getIdProduc());
-            carDto.idUser(car.getIdUser());
+            carDto.idProduct(car.getIdProduc().getId());
+            carDto.idUser(car.getIdUser().getId());
             carDto.cantidad(car.getCantidad());
 
             return carDto;

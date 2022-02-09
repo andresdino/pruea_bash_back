@@ -4,10 +4,12 @@ import com.prueba_back.prueba_java.Dto.CarDto;
 import com.prueba_back.prueba_java.Entity.Car;
 import com.prueba_back.prueba_java.Entity.Kardex;
 import com.prueba_back.prueba_java.Entity.Products;
+import com.prueba_back.prueba_java.Entity.Users;
 import com.prueba_back.prueba_java.Mappers.CarMapper;
 import com.prueba_back.prueba_java.Repository.CarsRepository;
 import com.prueba_back.prueba_java.Repository.KardexRepository;
 import com.prueba_back.prueba_java.Repository.ProductRepository;
+import com.prueba_back.prueba_java.Repository.UserRepository;
 import com.prueba_back.prueba_java.Response.ResponseCar;
 import com.prueba_back.prueba_java.Response.ResponseCarSave;
 import com.prueba_back.prueba_java.Response.ResponseUsers;
@@ -28,10 +30,15 @@ public class CarImpl implements CarService {
     KardexRepository kardexRepository;
 
     @Autowired
-    CarMapper carMapper;
+    ProductRepository productRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    UserRepository userRepository;
+
+    @Autowired
+    CarMapper carMapper;
+
+
 
 
     @Override
@@ -61,14 +68,14 @@ public class CarImpl implements CarService {
                         /* Kardex*/
                         Kardex kardex = new Kardex();
 
-                        Float Value = products.getValue() * products.getQuantity();
+                        Float Value = products.getValue() * car.cantidad();
 
                         kardex.setName(products.getName());
                         kardex.setUnit(products.getUnit());
                         kardex.setSupplier(products.getSupplier());
                         kardex.setDate(new Date());
                         kardex.setValue(products.getValue());
-                        kardex.setQuantityDepartures(products.getQuantity());
+                        kardex.setQuantityDepartures(car.cantidad());
                         kardex.setValueDepartures(Value);
                         kardex.setQuantityBalance(products.getQuantity());
                         kardex.setValueBalance(Value);
@@ -77,12 +84,13 @@ public class CarImpl implements CarService {
                 }
             }
 
-
+            Products products = productRepository.findByIdProduc(car.idProduct());
+            Users users = userRepository.findByIdUsers(car.idUser());
 
             if(car != null){
                 car1.setCantidad(car.cantidad());
-                car1.setIdProduc(car.idProduct());
-                car1.setIdUser(car.idUser());
+                car1.setIdProduc(products);
+                car1.setIdUser(users);
                 carRepository.save(car1);
                 return carMapper.toResponseCarSave(car1,201,"Registro agregado al carro agregado exitosamente","201");
             }
