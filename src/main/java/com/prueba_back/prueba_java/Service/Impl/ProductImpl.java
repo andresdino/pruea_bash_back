@@ -39,6 +39,23 @@ public class ProductImpl implements ProductService {
 
                     Long NewQuantity = productDto.quantity() + productsUpdate.getQuantity();
 
+                    /* Kardex*/
+                    Kardex kardex = new Kardex();
+
+                    Float ValueTickets = productDto.value() * productDto.quantity();
+
+                    kardex.setId(productDto.id());
+                    kardex.setName(productDto.name());
+                    kardex.setUnit(productDto.unit());
+                    kardex.setSupplier(productDto.supplier());
+                    kardex.setDate(new Date());
+                    kardex.setValue(productDto.value());
+                    kardex.setQuantityTickets(productDto.quantity());
+                    kardex.setValueTickets(ValueTickets);
+                    kardex.setQuantityBalance(NewQuantity);
+                    kardex.setValueBalance(ValueTickets);
+                    kardexRepository.save(kardex);
+
                     products.setId(productDto.id());
                     products.setName(productDto.name());
                     products.setValue(productDto.value());
